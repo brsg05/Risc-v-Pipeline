@@ -15,15 +15,40 @@ module alu#(
         always_comb
         begin
             case(Operation)
-            4'b0000:        // AND
+            4'b0000:        // ADD
+                ALUResult = $signed(SrcA) + $signed(SrcB);
+            4'b0001:        // SUB
+                    ALUResult = $signed(SrcA) - $signed(SrcB);
+            4'b1010:        // SLT
+                    ALUResult = ($signed(SrcA) < $signed(SrcB)) ? 1 : 0;
+            4'b0100:        // XOR
+                    ALUResult = SrcA ^ SrcB;
+            4'b1000:        // AND
                     ALUResult = SrcA & SrcB;
-            4'b0010:        // ADD
-                    ALUResult = SrcA + SrcB;
-            4'b1000:        // Equal
+            4'b0011:        // OR
+                     ALUResult = SrcA | SrcB;
+            4'b0110:        // SLLI
+                    ALUResult = SrcA << SrcB;
+            4'b1100:        // SRLI
+                    ALUResult = SrcA >> SrcB;
+            4'b0010:        // ADDI
+                    ALUResult = $signed(SrcA) + SrcB;
+            4'b0101:        // SRAI
+                    ALUResult = $signed(SrcA) >>> (SrcB & 5'b11111);
+            4'b1001:        // SLTI
+                    ALUResult = ($signed(SrcA) < SrcB) ? 1 : 0;
+            4'b0111:        //BEQ
                     ALUResult = (SrcA == SrcB) ? 1 : 0;
+            4'b1110:        //BNE
+                    ALUResult = (SrcA != SrcB) ? 1 : 0;
+            4'b1011:        //BGE
+                    ALUResult = ($signed(SrcA) >= $signed(SrcB)) ? 1 : 0;
+            4'b1101:        //BLT
+                    ALUResult = ($signed(SrcA) < $signed(SrcB)) ? 1 : 0;
+            4'b1111:        //LUI
+                    ALUResult = SrcB;
             default:
                     ALUResult = 0;
             endcase
         end
 endmodule
-
