@@ -9,6 +9,9 @@ package Pipe_Buf_Reg_PKG;
   typedef struct packed {
     logic        ALUSrc;
     logic        MemtoReg;
+    logic        Jump;
+    logic        JumpReg;
+    logic        Halt;
     logic        RegWrite;
     logic        MemRead;
     logic        MemWrite;
@@ -29,6 +32,7 @@ package Pipe_Buf_Reg_PKG;
   // Reg C
   typedef struct packed {
     logic        RegWrite;
+    logic        Jump;
     logic        MemtoReg;
     logic        MemRead;
     logic        MemWrite;
@@ -47,6 +51,7 @@ package Pipe_Buf_Reg_PKG;
   typedef struct packed {
     logic        RegWrite;
     logic        MemtoReg;
+    logic        Jump;
     logic [31:0] Pc_Imm;
     logic [31:0] Pc_Four;
     logic [31:0] Imm_Out;
